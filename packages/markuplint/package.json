@@ -2,13 +2,23 @@
   "name": "@vue-html-bridge/markuplint",
   "version": "1.0.0",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./core/dist/index.js",
+      "types": "./core/dist/index.d.ts"
+    },
+    "./lsp": {
+      "import": "./lsp/dist/index.js",
+      "types": "./lsp/dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -b core lsp"
   },
   "dependencies": {
     "@vue-html-bridge/core": "1.0.0",
-    "markuplint": "^4.0.0"
+    "markuplint": "^4.0.0",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
   }
 }

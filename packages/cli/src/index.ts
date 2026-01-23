@@ -21,8 +21,9 @@ const main = () => {
     const sfcContent = readFileSync(absolutePath, "utf-8");
     const result = bridge(sfcContent);
     console.log(JSON.stringify(result, null, 2));
-  } catch (error: any) {
-    console.error(`Error processing file ${filePath}: ${error.message}`);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error processing file ${filePath}: ${message}`);
     process.exit(1);
   }
 };

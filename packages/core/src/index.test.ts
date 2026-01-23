@@ -2,6 +2,99 @@ import { describe, expect, it } from "vitest";
 import { bridge } from "./index";
 
 describe("Script Analysis", () => {
+  it("extracts props from interface", () => {
+    const input = `<template>
+  <div>{{ status }}</div>
+</template>
+<script setup lang="ts">
+interface Props {
+  status: 'open' | 'closed';
+}
+defineProps<Props>()
+</script>`;
+    const result = bridge(input);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual(
+      expect.objectContaining({
+        plain: "<div>open</div>\n",
+      })
+    );
+    expect(result).toContainEqual(
+      expect.objectContaining({
+        plain: "<div>closed</div>\n",
+      })
+    );
+  });
+
+  it("handles withDefaults", () => {
+    const input = `<template>
+  <div>{{ count }}</div>
+</template>
+<script setup lang="ts">
+const props = withDefaults(defineProps<{
+  count?: number;
+}>(), {
+  count: 10
+})
+</script>`;
+    const result = bridge(input);
+    expect(result).toHaveLength(1);
+    expect(result[0].plain).toContain("10");
+  });
+
+  it("handles destructured props", () => {
+    const input = `<template>
+  <div>{{ status }}</div>
+</template>
+<script setup lang="ts">
+const { status } = defineProps<{
+  status: 'on' | 'off';
+}>()
+</script>`;
+    const result = bridge(input);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual(
+      expect.objectContaining({
+        plain: "<div>on</div>\n",
+      })
+    );
+    expect(result).toContainEqual(
+      expect.objectContaining({
+        plain: "<div>off</div>\n",
+      })
+    );
+  });
+
+  it("handles destructured props with withDefaults", () => {
+    const input = `<template>
+  <div>{{ name }}</div>
+</template>
+<script setup lang="ts">
+const { name } = withDefaults(defineProps<{
+  name?: string;
+}>(), {
+  name: 'Guest'
+})
+</script>`;
+    const result = bridge(input);
+    expect(result).toHaveLength(1);
+    expect(result[0].plain).toContain("Guest");
+  });
+
+  it("handles destructured with default values", () => {
+    const input = `<template>
+  <div>{{ name }}</div>
+</template>
+<script setup lang="ts">
+const { name = 'Guest' } = defineProps<{
+  name?: string;
+}>()
+</script>`;
+    const result = bridge(input);
+    expect(result).toHaveLength(1);
+    expect(result[0].plain).toContain("Guest");
+  });
+
   it("Union Types (Props)", () => {
     const input = `<template>
   <div :aria-hidden="hidden">test</div>
@@ -14,14 +107,38 @@ const props = defineProps<{ hidden: 'true' | 'false' }>()
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: '<div aria-hidden="true">test</div>',
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="40" aria-hidden="true" data-aria-hidden-start-line="2" data-aria-hidden-start-column="8" data-aria-hidden-end-line="2" data-aria-hidden-end-column="29">test</div>',
+      plain: '<div aria-hidden="true">test</div>\n',
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="40"
+  aria-hidden="true"
+  data-aria-hidden-start-line="2"
+  data-aria-hidden-start-column="8"
+  data-aria-hidden-end-line="2"
+  data-aria-hidden-end-column="29"
+>
+  test
+</div>
+`,
     });
     expect(output).toContainEqual({
-      plain: '<div aria-hidden="false">test</div>',
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="40" aria-hidden="false" data-aria-hidden-start-line="2" data-aria-hidden-start-column="8" data-aria-hidden-end-line="2" data-aria-hidden-end-column="29">test</div>',
+      plain: '<div aria-hidden="false">test</div>\n',
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="40"
+  aria-hidden="false"
+  data-aria-hidden-start-line="2"
+  data-aria-hidden-start-column="8"
+  data-aria-hidden-end-line="2"
+  data-aria-hidden-end-column="29"
+>
+  test
+</div>
+`,
     });
   });
 
@@ -37,14 +154,38 @@ defineProps<{ isDisabled: boolean }>()
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: '<button disabled="true">Click</button>',
-      annotated:
-        '<button data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="48" disabled="true" data-disabled-start-line="2" data-disabled-start-column="11" data-disabled-end-line="2" data-disabled-end-column="33">Click</button>',
+      plain: '<button disabled="true">Click</button>\n',
+      annotated: `<button
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="48"
+  disabled="true"
+  data-disabled-start-line="2"
+  data-disabled-start-column="11"
+  data-disabled-end-line="2"
+  data-disabled-end-column="33"
+>
+  Click
+</button>
+`,
     });
     expect(output).toContainEqual({
-      plain: '<button disabled="false">Click</button>',
-      annotated:
-        '<button data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="48" disabled="false" data-disabled-start-line="2" data-disabled-start-column="11" data-disabled-end-line="2" data-disabled-end-column="33">Click</button>',
+      plain: '<button disabled="false">Click</button>\n',
+      annotated: `<button
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="48"
+  disabled="false"
+  data-disabled-start-line="2"
+  data-disabled-start-column="11"
+  data-disabled-end-line="2"
+  data-disabled-end-column="33"
+>
+  Click
+</button>
+`,
     });
   });
 
@@ -60,14 +201,38 @@ const theme: 'light' | 'dark' = 'light'
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: '<span class="light">text</span>',
-      annotated:
-        '<span data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="35" class="light" data-class-start-line="2" data-class-start-column="9" data-class-end-line="2" data-class-end-column="23">text</span>',
+      plain: '<span class="light">text</span>\n',
+      annotated: `<span
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="35"
+  class="light"
+  data-class-start-line="2"
+  data-class-start-column="9"
+  data-class-end-line="2"
+  data-class-end-column="23"
+>
+  text
+</span>
+`,
     });
     expect(output).toContainEqual({
-      plain: '<span class="dark">text</span>',
-      annotated:
-        '<span data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="35" class="dark" data-class-start-line="2" data-class-start-column="9" data-class-end-line="2" data-class-end-column="23">text</span>',
+      plain: '<span class="dark">text</span>\n',
+      annotated: `<span
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="35"
+  class="dark"
+  data-class-start-line="2"
+  data-class-start-column="9"
+  data-class-end-line="2"
+  data-class-end-column="23"
+>
+  text
+</span>
+`,
     });
   });
 });
@@ -83,14 +248,28 @@ describe("Template Permutation", () => {
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: "<div>A</div>",
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="27">A</div>',
+      plain: "<div>A</div>\n",
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="27"
+>
+  A
+</div>
+`,
     });
     expect(output).toContainEqual({
-      plain: "<div>B</div>",
-      annotated:
-        '<div data-start-line="3" data-start-column="3" data-end-line="3" data-end-column="22">B</div>',
+      plain: "<div>B</div>\n",
+      annotated: `<div
+  data-start-line="3"
+  data-start-column="3"
+  data-end-line="3"
+  data-end-column="22"
+>
+  B
+</div>
+`,
     });
   });
 
@@ -103,9 +282,16 @@ describe("Template Permutation", () => {
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: "<span>Done</span>",
-      annotated:
-        '<span data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="34">Done</span>',
+      plain: "<span>Done</span>\n",
+      annotated: `<span
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="34"
+>
+  Done
+</span>
+`,
     });
     expect(output).toContainEqual({
       plain: "",
@@ -122,9 +308,16 @@ describe("Template Permutation", () => {
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: "<div>Content</div>",
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="37">Content</div>',
+      plain: "<div>Content</div>\n",
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="37"
+>
+  Content
+</div>
+`,
     });
     expect(output).toContainEqual({
       plain: "",
@@ -145,14 +338,45 @@ describe("Template Permutation", () => {
 
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: '<div class="root"><span>Child</span></div>',
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="6" data-end-column="9" class="root" data-class-start-line="2" data-class-start-column="8" data-class-end-line="2" data-class-end-column="20"><span data-start-line="4" data-start-column="7" data-end-line="4" data-end-column="25">Child</span></div>',
+      plain: `<div class="root"><span>Child</span></div>
+`,
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="6"
+  data-end-column="9"
+  class="root"
+  data-class-start-line="2"
+  data-class-start-column="8"
+  data-class-end-line="2"
+  data-class-end-column="20"
+>
+  <span
+    data-start-line="4"
+    data-start-column="7"
+    data-end-line="4"
+    data-end-column="25"
+  >
+    Child
+  </span>
+</div>
+`,
     });
     expect(output).toContainEqual({
-      plain: '<div class="root"></div>',
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="6" data-end-column="9" class="root" data-class-start-line="2" data-class-start-column="8" data-class-end-line="2" data-class-end-column="20"></div>',
+      plain: `<div class="root"></div>
+`,
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="6"
+  data-end-column="9"
+  class="root"
+  data-class-start-line="2"
+  data-class-start-column="8"
+  data-class-end-line="2"
+  data-class-end-column="20"
+></div>
+`,
     });
   });
 });
@@ -170,13 +394,20 @@ const title = "Hello"
 
     expect(output).toHaveLength(1);
     expect(output[0]).toEqual({
-      plain: "<h1>Hello</h1>",
-      annotated:
-        '<h1 data-start-line="2" data-start-column="3" data-end-line="2" data-end-column="23">Hello</h1>',
+      plain: "<h1>Hello</h1>\n",
+      annotated: `<h1
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="2"
+  data-end-column="23"
+>
+  Hello
+</h1>
+`,
     });
   });
 
-  it("v-for Known Array", () => {
+  it("v-for Known Array (static)", () => {
     const input = `<template>
   <ul>
     <li v-for="tag in tags">{{ tag }}</li>
@@ -188,16 +419,149 @@ const tags = ["A", "B"]
 
     const output = bridge(input);
 
+    // Static arrays skip the empty case since they can never be empty at runtime
+    expect(output).toHaveLength(1);
+    expect(output[0]).toEqual({
+      plain: `<ul>
+  <li>A</li>
+  <li>B</li>
+</ul>
+`,
+      annotated: `<ul
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="8"
+>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="43"
+  >
+    A
+  </li>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="43"
+  >
+    B
+  </li>
+</ul>
+`,
+    });
+  });
+
+  it("v-for Inline Array", () => {
+    const input = `<template>
+  <ul>
+    <li v-for="num in [1, 2, 3]">{{ num }}</li>
+  </ul>
+</template>`;
+
+    const output = bridge(input);
+
+    // Inline arrays skip the empty case since they can never be empty at runtime
+    expect(output).toHaveLength(1);
+    expect(output[0]).toEqual({
+      plain: `<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+`,
+      annotated: `<ul
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="8"
+>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="48"
+  >
+    1
+  </li>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="48"
+  >
+    2
+  </li>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="48"
+  >
+    3
+  </li>
+</ul>
+`,
+    });
+  });
+
+  it("v-for Ref Array (dynamic)", () => {
+    const input = `<template>
+  <ul>
+    <li v-for="tag in tags">{{ tag }}</li>
+  </ul>
+</template>
+<script lang="ts" setup>
+import { ref } from 'vue'
+const tags = ref(["A", "B"])
+</script>`;
+
+    const output = bridge(input);
+
+    // Ref arrays include the empty case since they can be empty at runtime
     expect(output).toHaveLength(2);
     expect(output).toContainEqual({
-      plain: "<ul></ul>",
-      annotated:
-        '<ul data-start-line="2" data-start-column="3" data-end-line="4" data-end-column="8"></ul>',
+      plain: "<ul></ul>\n",
+      annotated: `<ul
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="8"
+></ul>
+`,
     });
     expect(output).toContainEqual({
-      plain: "<ul><li>A</li><li>B</li></ul>",
-      annotated:
-        '<ul data-start-line="2" data-start-column="3" data-end-line="4" data-end-column="8"><li data-start-line="3" data-start-column="5" data-end-line="3" data-end-column="43">A</li><li data-start-line="3" data-start-column="5" data-end-line="3" data-end-column="43">B</li></ul>',
+      plain: `<ul>
+  <li>A</li>
+  <li>B</li>
+</ul>
+`,
+      annotated: `<ul
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="8"
+>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="43"
+  >
+    A
+  </li>
+  <li
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="43"
+  >
+    B
+  </li>
+</ul>
+`,
     });
   });
 
@@ -212,19 +576,64 @@ const tags = ["A", "B"]
 
     expect(output).toHaveLength(3);
     expect(output).toContainEqual({
-      plain: "<div></div>",
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="4" data-end-column="9"></div>',
+      plain: "<div></div>\n",
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="9"
+></div>
+`,
     });
     expect(output).toContainEqual({
-      plain: "<div><span>mock-item</span></div>",
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="4" data-end-column="9"><span data-start-line="3" data-start-column="5" data-end-line="3" data-end-column="56">mock-item</span></div>',
+      plain: "<div><span>mock-item</span></div>\n",
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="9"
+>
+  <span
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="56"
+  >
+    mock-item
+  </span>
+</div>
+`,
     });
     expect(output).toContainEqual({
-      plain: "<div><span>mock-item</span><span>mock-item</span></div>",
-      annotated:
-        '<div data-start-line="2" data-start-column="3" data-end-line="4" data-end-column="9"><span data-start-line="3" data-start-column="5" data-end-line="3" data-end-column="56">mock-item</span><span data-start-line="3" data-start-column="5" data-end-line="3" data-end-column="56">mock-item</span></div>',
+      plain: `<div>
+  <span>mock-item</span>
+  <span>mock-item</span>
+</div>
+`,
+      annotated: `<div
+  data-start-line="2"
+  data-start-column="3"
+  data-end-line="4"
+  data-end-column="9"
+>
+  <span
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="56"
+  >
+    mock-item
+  </span>
+  <span
+    data-start-line="3"
+    data-start-column="5"
+    data-end-line="3"
+    data-end-column="56"
+  >
+    mock-item
+  </span>
+</div>
+`,
     });
   });
 });

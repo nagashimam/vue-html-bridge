@@ -1,17 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"baseUrl": ".",
-		"paths": {
-			"@vue-html-bridge/*": ["packages/*/src"]
-		}
-	},
-	"files": [],
-	"references": [{ "path": "./packages/core" }, { "path": "./packages/cli" }]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@vue-html-bridge/*": ["packages/*/src"]
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/cli" },
+    { "path": "./packages/markuplint/core" },
+    { "path": "./packages/markuplint/lsp" }
+  ]
 }
-

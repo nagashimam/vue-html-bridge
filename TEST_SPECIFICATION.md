@@ -16,12 +16,12 @@ const props = defineProps<{ hidden: 'true' | 'false' }>()
 ```JSON
 [
   {
-    "plain": "<div aria-hidden=\"true\">test</div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"40\" aria-hidden=\"true\" data-aria-hidden-start-line=\"2\" data-aria-hidden-start-column=\"8\" data-aria-hidden-end-line=\"2\" data-aria-hidden-end-column=\"29\">test</div>"
+    "plain": "<div aria-hidden=\"true\">test</div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"40\"\n  aria-hidden=\"true\"\n  data-aria-hidden-start-line=\"2\"\n  data-aria-hidden-start-column=\"8\"\n  data-aria-hidden-end-line=\"2\"\n  data-aria-hidden-end-column=\"29\"\n>\n  test\n</div>\n"
   },
   {
-    "plain": "<div aria-hidden=\"false\">test</div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"40\" aria-hidden=\"false\" data-aria-hidden-start-line=\"2\" data-aria-hidden-start-column=\"8\" data-aria-hidden-end-line=\"2\" data-aria-hidden-end-column=\"29\">test</div>"
+    "plain": "<div aria-hidden=\"false\">test</div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"40\"\n  aria-hidden=\"false\"\n  data-aria-hidden-start-line=\"2\"\n  data-aria-hidden-start-column=\"8\"\n  data-aria-hidden-end-line=\"2\"\n  data-aria-hidden-end-column=\"29\"\n>\n  test\n</div>\n"
   }
 ]
 ```
@@ -40,12 +40,12 @@ defineProps<{ isDisabled: boolean }>()
 ```JSON
 [
   {
-    "plain": "<button disabled=\"true\">Click</button>",
-    "annotated": "<button data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"48\" disabled=\"true\" data-disabled-start-line=\"2\" data-disabled-start-column=\"11\" data-disabled-end-line=\"2\" data-disabled-end-column=\"33\">Click</button>"
+    "plain": "<button disabled=\"true\">Click</button>\n",
+    "annotated": "<button\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"48\"\n  disabled=\"true\"\n  data-disabled-start-line=\"2\"\n  data-disabled-start-column=\"11\"\n  data-disabled-end-line=\"2\"\n  data-disabled-end-column=\"33\"\n>\n  Click\n</button>\n"
   },
   {
-    "plain": "<button disabled=\"false\">Click</button>",
-    "annotated": "<button data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"48\" disabled=\"false\" data-disabled-start-line=\"2\" data-disabled-start-column=\"11\" data-disabled-end-line=\"2\" data-disabled-end-column=\"33\">Click</button>"
+    "plain": "<button disabled=\"false\">Click</button>\n",
+    "annotated": "<button\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"48\"\n  disabled=\"false\"\n  data-disabled-start-line=\"2\"\n  data-disabled-start-column=\"11\"\n  data-disabled-end-line=\"2\"\n  data-disabled-end-column=\"33\"\n>\n  Click\n</button>\n"
   }
 ]
 ```
@@ -64,12 +64,12 @@ const theme: 'light' | 'dark' = 'light'
 ```JSON
 [
   {
-    "plain": "<span class=\"light\">text</span>",
-    "annotated": "<span data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"35\" class=\"light\" data-class-start-line=\"2\" data-class-start-column=\"9\" data-class-end-line=\"2\" data-class-end-column=\"23\">text</span>"
+    "plain": "<span class=\"light\">text</span>\n",
+    "annotated": "<span\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"35\"\n  class=\"light\"\n  data-class-start-line=\"2\"\n  data-class-start-column=\"9\"\n  data-class-end-line=\"2\"\n  data-class-end-column=\"23\"\n>\n  text\n</span>\n"
   },
   {
-    "plain": "<span class=\"dark\">text</span>",
-    "annotated": "<span data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"35\" class=\"dark\" data-class-start-line=\"2\" data-class-start-column=\"9\" data-class-end-line=\"2\" data-class-end-column=\"23\">text</span>"
+    "plain": "<span class=\"dark\">text</span>\n",
+    "annotated": "<span\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"35\"\n  class=\"dark\"\n  data-class-start-line=\"2\"\n  data-class-start-column=\"9\"\n  data-class-end-line=\"2\"\n  data-class-end-column=\"23\"\n>\n  text\n</span>\n"
   }
 ]
 ```
@@ -90,12 +90,12 @@ const theme: 'light' | 'dark' = 'light'
 ```JSON
 [
   {
-    "plain": "<div>A</div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"27\">A</div>"
+    "plain": "<div>A</div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"27\"\n>\n  A\n</div>\n"
   },
   {
-    "plain": "<div>B</div>",
-    "annotated": "<div data-start-line=\"3\" data-start-column=\"3\" data-end-line=\"3\" data-end-column=\"22\">B</div>"
+    "plain": "<div>B</div>\n",
+    "annotated": "<div\n  data-start-line=\"3\"\n  data-start-column=\"3\"\n  data-end-line=\"3\"\n  data-end-column=\"22\"\n>\n  B\n</div>\n"
   }
 ]
 ```
@@ -111,8 +111,8 @@ const theme: 'light' | 'dark' = 'light'
 ```JSON
 [
   {
-    "plain": "<span>Done</span>",
-    "annotated": "<span data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"34\">Done</span>"
+    "plain": "<span>Done</span>\n",
+    "annotated": "<span\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"34\"\n>\n  Done\n</span>\n"
   },
   {
     "plain": "",
@@ -132,8 +132,8 @@ const theme: 'light' | 'dark' = 'light'
 ```JSON
 [
   {
-    "plain": "<div>Content</div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"37\">Content</div>"
+    "plain": "<div>Content</div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"37\"\n>\n  Content\n</div>\n"
   },
   {
     "plain": "",
@@ -157,12 +157,12 @@ const theme: 'light' | 'dark' = 'light'
 ```JSON
 [
   {
-    "plain": "<div class=\"root\"><span>Child</span></div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"6\" data-end-column=\"9\" class=\"root\" data-class-start-line=\"2\" data-class-start-column=\"8\" data-class-end-line=\"2\" data-class-end-column=\"20\"><span data-start-line=\"4\" data-start-column=\"7\" data-end-line=\"4\" data-end-column=\"25\">Child</span></div>"
+    "plain": "<div class=\"root\"><span>Child</span></div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"6\"\n  data-end-column=\"9\"\n  class=\"root\"\n  data-class-start-line=\"2\"\n  data-class-start-column=\"8\"\n  data-class-end-line=\"2\"\n  data-class-end-column=\"20\"\n>\n  <span\n    data-start-line=\"4\"\n    data-start-column=\"7\"\n    data-end-line=\"4\"\n    data-end-column=\"25\"\n  >\n    Child\n  </span>\n</div>\n"
   },
   {
-    "plain": "<div class=\"root\"></div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"6\" data-end-column=\"9\" class=\"root\" data-class-start-line=\"2\" data-class-start-column=\"8\" data-class-end-line=\"2\" data-class-end-column=\"20\"></div>"
+    "plain": "<div class=\"root\"></div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"6\"\n  data-end-column=\"9\"\n  class=\"root\"\n  data-class-start-line=\"2\"\n  data-class-start-column=\"8\"\n  data-class-end-line=\"2\"\n  data-class-end-column=\"20\"\n></div>\n"
   }
 ]
 ```
@@ -185,8 +185,8 @@ const title = "Hello"
 ```JSON
 [
   {
-    "plain": "<h1>Hello</h1>",
-    "annotated": "<h1 data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"2\" data-end-column=\"23\">Hello</h1>"
+    "plain": "<h1>Hello</h1>\n",
+    "annotated": "<h1\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"2\"\n  data-end-column=\"23\"\n>\n  Hello\n</h1>\n"
   }
 ]
 ```
@@ -207,12 +207,12 @@ const tags = ["A", "B"]
 ```JSON
 [
   {
-    "plain": "<ul></ul>",
-    "annotated": "<ul data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"4\" data-end-column=\"8\"></ul>"
+    "plain": "<ul></ul>\n",
+    "annotated": "<ul\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"4\"\n  data-end-column=\"8\"\n></ul>\n"
   },
   {
-    "plain": "<ul><li>A</li><li>B</li></ul>",
-    "annotated": "<ul data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"4\" data-end-column=\"8\"><li data-start-line=\"3\" data-start-column=\"5\" data-end-line=\"3\" data-end-column=\"43\">A</li><li data-start-line=\"3\" data-start-column=\"5\" data-end-line=\"3\" data-end-column=\"43\">B</li></ul>"
+    "plain": "<ul>\n  <li>A</li>\n  <li>B</li>\n</ul>\n",
+    "annotated": "<ul\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"4\"\n  data-end-column=\"8\"\n>\n  <li\n    data-start-line=\"3\"\n    data-start-column=\"5\"\n    data-end-line=\"3\"\n    data-end-column=\"43\"\n  >\n    A\n  </li>\n  <li\n    data-start-line=\"3\"\n    data-start-column=\"5\"\n    data-end-line=\"3\"\n    data-end-column=\"43\"\n  >\n    B\n  </li>\n</ul>\n"
   }
 ]
 ```
@@ -230,16 +230,16 @@ const tags = ["A", "B"]
 ```JSON
 [
   {
-    "plain": "<div></div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"4\" data-end-column=\"9\"></div>"
+    "plain": "<div></div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"4\"\n  data-end-column=\"9\"\n></div>\n"
   },
   {
-    "plain": "<div><span>mock-item</span></div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"4\" data-end-column=\"9\"><span data-start-line=\"3\" data-start-column=\"5\" data-end-line=\"3\" data-end-column=\"56\">mock-item</span></div>"
+    "plain": "<div><span>mock-item</span></div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"4\"\n  data-end-column=\"9\"\n>\n  <span\n    data-start-line=\"3\"\n    data-start-column=\"5\"\n    data-end-line=\"3\"\n    data-end-column=\"56\"\n  >\n    mock-item\n  </span>\n</div>\n"
   },
   {
-    "plain": "<div><span>mock-item</span><span>mock-item</span></div>",
-    "annotated": "<div data-start-line=\"2\" data-start-column=\"3\" data-end-line=\"4\" data-end-column=\"9\"><span data-start-line=\"3\" data-start-column=\"5\" data-end-line=\"3\" data-end-column=\"56\">mock-item</span><span data-start-line=\"3\" data-start-column=\"5\" data-end-line=\"3\" data-end-column=\"56\">mock-item</span></div>"
+    "plain": "<div>\n  <span>mock-item</span>\n  <span>mock-item</span>\n</div>\n",
+    "annotated": "<div\n  data-start-line=\"2\"\n  data-start-column=\"3\"\n  data-end-line=\"4\"\n  data-end-column=\"9\"\n>\n  <span\n    data-start-line=\"3\"\n    data-start-column=\"5\"\n    data-end-line=\"3\"\n    data-end-column=\"56\"\n  >\n    mock-item\n  </span>\n  <span\n    data-start-line=\"3\"\n    data-start-column=\"5\"\n    data-end-line=\"3\"\n    data-end-column=\"56\"\n  >\n    mock-item\n  </span>\n</div>\n"
   }
 ]
 ```
