@@ -5,11 +5,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ```bash
-# Run the main implementation
-npx tsx script.ts
+# Run tests
+npm test
 
-# Run the proof of concept
-npx tsx poc.ts
+# Run tests in watch mode
+npm run test:watch
+
+# Run a single test file
+npx vitest run packages/core/src/index.test.ts
+
+# Run tests matching a pattern
+npx vitest run -t "v-if"
+
+# Build core package
+npm run build -w @vue-html-bridge/core
+
+# Run CLI on a Vue file
+npx tsx packages/cli/src/index.ts path/to/file.vue
 ```
 
 ## Quality Guidelines
@@ -32,8 +44,9 @@ This project is a **static analysis bridge** that converts Vue.js Single File Co
 
 ### Key Files
 
-- `script.ts` - Main implementation
-- `poc.ts` - Earlier proof of concept (not fully tested against spec)
+- `packages/core/src/index.ts` - Main bridge implementation (exports `bridge()` function)
+- `packages/core/src/index.test.ts` - Test suite based on TEST_SPECIFICATION.md
+- `packages/cli/src/index.ts` - CLI wrapper that reads .vue files and outputs JSON
 - `TEST_SPECIFICATION.md` - Test cases with expected inputs/outputs
 
 ---

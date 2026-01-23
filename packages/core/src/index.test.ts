@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bridge } from "./script";
+import { bridge } from "./index";
 
 describe("Script Analysis", () => {
   it("Union Types (Props)", () => {

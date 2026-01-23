@@ -1,0 +1,15 @@
+{
+  "name": "@vue-html-bridge/core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.28.6",
+    "@vue/compiler-dom": "^3.5.27",
+    "@vue/compiler-sfc": "^3.5.27"
+  }
+}
