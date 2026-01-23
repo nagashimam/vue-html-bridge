@@ -1,0 +1,14 @@
+{
+  "name": "@vue-html-bridge/markuplint",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@vue-html-bridge/core": "1.0.0",
+    "markuplint": "^4.0.0"
+  }
+}
