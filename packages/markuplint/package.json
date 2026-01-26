@@ -1,22 +1,51 @@
 {
-  "name": "@vue-html-bridge/markuplint",
-  "version": "1.0.0",
+  "name": "vue-html-bridge-markuplint",
+  "version": "0.0.1",
+  "description": "Markuplint integration for vue-html-bridge validation",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./core/dist/index.js",
-      "types": "./core/dist/index.d.ts"
+      "types": "./core/dist/index.d.ts",
+      "import": "./core/dist/index.js"
     },
     "./lsp": {
-      "import": "./lsp/dist/index.js",
-      "types": "./lsp/dist/index.d.ts"
+      "types": "./lsp/dist/index.d.ts",
+      "import": "./lsp/dist/index.js"
+    },
+    "./cli": {
+      "types": "./cli/dist/index.d.ts",
+      "import": "./cli/dist/index.js"
     }
   },
+  "bin": {
+    "vue-html-bridge-markuplint": "cli/dist/index.js"
+  },
+  "files": [
+    "core/dist",
+    "lsp/dist",
+    "cli/dist"
+  ],
   "scripts": {
-    "build": "tsc -b core lsp"
+    "build": "tsc -b core lsp cli",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "nagashimam <masato.ngsm@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "html",
+    "markuplint",
+    "linter",
+    "validation"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
-    "@vue-html-bridge/core": "1.0.0",
+    "vue-html-bridge-core": "0.0.1",
     "markuplint": "^4.0.0",
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-textdocument": "^1.0.12"

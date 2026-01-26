@@ -21,19 +21,22 @@ npx vitest run packages/markuplint/core/src/index.test.ts
 npx vitest run -t "v-if"
 
 # Build core package
-npm run build -w @vue-html-bridge/core
+npm run build -w vue-html-bridge-core
 
 # Build markuplint package (includes core + lsp)
-npm run build -w @vue-html-bridge/markuplint
+npm run build -w vue-html-bridge-markuplint
 
 # Build VSCode extension
 npm run build:vscode
 
 # Build all packages
-npm run build -w @vue-html-bridge/core && npm run build -w @vue-html-bridge/markuplint && npm run compile -w @vue-html-bridge/vscode
+npm run build -w vue-html-bridge-core && npm run build -w vue-html-bridge-markuplint && npm run compile -w vue-html-bridge-vscode
 
 # Run CLI on a Vue file
 npx tsx packages/cli/src/index.ts path/to/file.vue
+
+# Run markuplint CLI on a Vue file
+npx vue-html-bridge-markuplint path/to/file.vue
 ```
 
 ## Quality Guidelines
@@ -73,8 +76,8 @@ This project is a **static analysis bridge** that converts Vue.js Single File Co
 ### Package Dependency Graph
 
 ```
-@vue-html-bridge/vscode → @vue-html-bridge/markuplint/lsp → @vue-html-bridge/markuplint → @vue-html-bridge/core
-@vue-html-bridge/cli → @vue-html-bridge/core
+vue-html-bridge-vscode → vue-html-bridge-markuplint/lsp → vue-html-bridge-markuplint → vue-html-bridge-core
+vue-html-bridge-cli → vue-html-bridge-core
 ```
 
 ---

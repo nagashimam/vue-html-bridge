@@ -1,5 +1,6 @@
 {
-  "name": "@vue-html-bridge/vscode",
+  "name": "vue-html-bridge-vscode",
+  "private": true,
   "displayName": "Vue HTML Bridge",
   "description": "VSCode extension for Vue HTML Bridge",
   "version": "0.0.1",

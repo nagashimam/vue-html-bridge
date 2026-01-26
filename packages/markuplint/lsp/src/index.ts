@@ -12,7 +12,7 @@ import {
   TextDocumentChangeEvent,
 } from "vscode-languageserver/node.js";
 import { TextDocument } from "vscode-languageserver-textdocument";
-import { validate, type Violation } from "@vue-html-bridge/markuplint";
+import { validate, type Violation } from "vue-html-bridge-markuplint";
 import { fileURLToPath } from "url";
 
 // Create a connection for the server, using Node's IPC as a transport.

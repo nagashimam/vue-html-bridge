@@ -1,11 +1,37 @@
 {
-  "name": "@vue-html-bridge/core",
-  "version": "1.0.0",
+  "name": "vue-html-bridge-core",
+  "version": "0.0.1",
+  "description": "Static analysis bridge converting Vue.js SFCs into validatable HTML snapshots",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "nagashimam <masato.ngsm@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "html",
+    "static-analysis",
+    "sfc",
+    "validation"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@babel/parser": "^7.28.6",

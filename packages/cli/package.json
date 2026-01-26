@@ -1,16 +1,41 @@
 {
-  "name": "@vue-html-bridge/cli",
-  "version": "1.0.0",
+  "name": "vue-html-bridge-cli",
+  "version": "0.0.1",
+  "description": "CLI tool for vue-html-bridge",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
     "vue-html-bridge": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "nagashimam <masato.ngsm@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "html",
+    "cli",
+    "static-analysis"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
-    "@vue-html-bridge/core": "1.0.0"
+    "vue-html-bridge-core": "0.0.1"
   }
 }

@@ -8,7 +8,11 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vue-html-bridge/*": ["packages/*/src"]
+      "vue-html-bridge-core": ["packages/core/src"],
+      "vue-html-bridge-cli": ["packages/cli/src"],
+      "vue-html-bridge-markuplint": ["packages/markuplint/core/src"],
+      "vue-html-bridge-markuplint/lsp": ["packages/markuplint/lsp/src"],
+      "vue-html-bridge-markuplint/cli": ["packages/markuplint/cli/src"]
     }
   },
   "files": [],
@@ -16,6 +20,7 @@
     { "path": "./packages/core" },
     { "path": "./packages/cli" },
     { "path": "./packages/markuplint/core" },
-    { "path": "./packages/markuplint/lsp" }
+    { "path": "./packages/markuplint/lsp" },
+    { "path": "./packages/markuplint/cli" }
   ]
 }

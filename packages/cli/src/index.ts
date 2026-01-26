@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 
 // Assuming the core library exports a function named 'processSFC'
 // I will verify this in a later step if needed
-import { bridge } from "@vue-html-bridge/core";
+import { bridge } from "vue-html-bridge-core";
 
 const main = () => {
   const filePath = process.argv[2];

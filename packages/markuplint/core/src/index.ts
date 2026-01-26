@@ -1,5 +1,5 @@
 import { MLEngine } from "markuplint";
-import { bridge, type BridgeOutput } from "@vue-html-bridge/core";
+import { bridge, type BridgeOutput } from "vue-html-bridge-core";
 import type { Violation } from "./types.js";
 
 export type { Violation } from "./types.js";
