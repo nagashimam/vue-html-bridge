@@ -1,0 +1,131 @@
+*vue-html-bridge.txt*  HTML validation for Vue Single File Components
+
+Author:  nagashimam <masato.ngsm@gmail.com>
+License: MIT
+
+==============================================================================
+CONTENTS                                         *vue-html-bridge-contents*
+
+  1. Introduction ............................ |vue-html-bridge-introduction|
+  2. Requirements ............................ |vue-html-bridge-requirements|
+  3. Installation ............................ |vue-html-bridge-installation|
+  4. Configuration ........................... |vue-html-bridge-configuration|
+  5. Commands ................................ |vue-html-bridge-commands|
+  6. Functions ............................... |vue-html-bridge-functions|
+  7. Troubleshooting ......................... |vue-html-bridge-troubleshooting|
+
+==============================================================================
+1. INTRODUCTION                                *vue-html-bridge-introduction*
+
+vue-html-bridge.nvim provides LSP integration for validating Vue Single File
+Components using markuplint. It converts Vue templates into HTML snapshots
+using Cartesian coverage and validates each permutation.
+
+Features:
+- Automatic LSP server detection
+- Real-time diagnostics for Vue files
+- Source location mapping to original .vue files
+- Integration with nvim-lspconfig
+
+==============================================================================
+2. REQUIREMENTS                                *vue-html-bridge-requirements*
+
+- Neovim >= 0.8.0
+- nvim-lspconfig (https://github.com/neovim/nvim-lspconfig)
+- Node.js >= 18.0.0
+- vue-html-bridge-lsp server
+
+Install the LSP server with:
+>
+  npm install -g vue-html-bridge-markuplint
+<
+
+==============================================================================
+3. INSTALLATION                                *vue-html-bridge-installation*
+
+Using lazy.nvim:
+>lua
+  {
+    'nagashimam/vue-html-bridge.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    ft = 'vue',
+    opts = {},
+  }
+<
+
+Using packer.nvim:
+>lua
+  use {
+    'nagashimam/vue-html-bridge.nvim',
+    requires = { 'neovim/nvim-lspconfig' },
+    ft = 'vue',
+    config = function()
+      require('vue-html-bridge').setup()
+    end,
+  }
+<
+
+==============================================================================
+4. CONFIGURATION                              *vue-html-bridge-configuration*
+
+Call the setup function with optional configuration:
+>lua
+  require('vue-html-bridge').setup {
+    autostart = true,           -- Auto-start when opening Vue files
+    cmd = nil,                  -- Custom command (auto-detected if nil)
+    filetypes = { 'vue' },      -- File types to attach to
+    root_patterns = {           -- Patterns to find project root
+      'package.json',
+      '.git',
+    },
+    lsp_opts = {},              -- Additional lspconfig options
+  }
+<
+
+                                              *vue-html-bridge.defaults*
+Default configuration values:
+
+  autostart       `true`        Start LSP automatically
+  cmd             `nil`         Auto-detect server location
+  filetypes       `{'vue'}`     Attach to Vue files only
+  root_patterns   `{'package.json', '.git'}`
+
+==============================================================================
+5. COMMANDS                                      *vue-html-bridge-commands*
+
+                                              *:VueHtmlBridgeSetup*
+:VueHtmlBridgeSetup
+  Manually setup the LSP server. Useful if autostart is disabled.
+
+                                              *:VueHtmlBridgeHealth*
+:VueHtmlBridgeHealth
+  Run health check to verify installation. Equivalent to
+  `:checkhealth vue-html-bridge`.
+
+==============================================================================
+6. FUNCTIONS                                    *vue-html-bridge-functions*
+
+                                              *vue-html-bridge.setup()*
+vue-html-bridge.setup({opts})
+  Initialize the plugin with the given options. See
+  |vue-html-bridge-configuration| for available options.
+
+==============================================================================
+7. TROUBLESHOOTING                          *vue-html-bridge-troubleshooting*
+
+LSP server not starting:
+  1. Run `:checkhealth vue-html-bridge`
+  2. Verify installation: `which vue-html-bridge-lsp`
+  3. Check `:LspInfo` for client status
+
+No diagnostics appearing:
+  1. Ensure `.markuplintrc` config exists in project
+  2. Check `:LspLog` for errors
+  3. Verify file is a `.vue` file
+
+Using with Volar:
+  vue-html-bridge can run alongside Volar. Both servers will attach to Vue
+  files and provide their respective features.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

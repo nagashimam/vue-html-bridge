@@ -18,7 +18,8 @@
     }
   },
   "bin": {
-    "vue-html-bridge-markuplint": "cli/dist/index.js"
+    "vue-html-bridge-markuplint": "cli/dist/index.js",
+    "vue-html-bridge-lsp": "lsp/dist/index.js"
   },
   "files": [
     "core/dist",
