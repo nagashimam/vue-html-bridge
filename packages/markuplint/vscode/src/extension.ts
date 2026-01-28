@@ -10,12 +10,8 @@ import {
 let client: LanguageClient;
 
 export const activate = (context: ExtensionContext) => {
-  // The server is implemented in node
-  // In this monorepo setup, we'll look for the server in the sibling package
-  // Adjust this path if the structure changes or for production bundling
-  const serverModule = context.asAbsolutePath(
-    path.join("..", "lsp", "dist", "index.js")
-  );
+  // The server is bundled into dist/server.js during build
+  const serverModule = context.asAbsolutePath(path.join("dist", "server.js"));
 
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used

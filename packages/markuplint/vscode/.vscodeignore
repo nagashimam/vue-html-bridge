@@ -1,0 +1,28 @@
+# Source files
+src/**
+**/*.ts
+**/*.map
+
+# Build config
+tsconfig.json
+tsconfig.tsbuildinfo
+esbuild.js
+
+# Dependencies (bundled)
+node_modules/**
+
+# Parent directories (monorepo)
+../**
+
+# Hidden files and folders
+**/.*
+.vscode/**
+
+# Keep only essential files
+!dist/**/*.js
+!images/**
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!language-configuration.json

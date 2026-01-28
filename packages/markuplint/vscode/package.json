@@ -1,9 +1,28 @@
 {
   "name": "vue-html-bridge-vscode",
-  "private": true,
+  "private": false,
   "displayName": "Vue HTML Bridge",
-  "description": "VSCode extension for Vue HTML Bridge",
+  "description": "Real-time HTML validation for Vue Single File Components using markuplint",
   "version": "0.0.1",
+  "publisher": "nagashimam",
+  "author": "nagashimam <masato.ngsm@gmail.com>",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nagashimam/vue-html-bridge"
+  },
+  "homepage": "https://github.com/nagashimam/vue-html-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/nagashimam/vue-html-bridge/issues"
+  },
+  "keywords": [
+    "vue",
+    "html",
+    "linter",
+    "markuplint",
+    "validation"
+  ],
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -30,14 +49,15 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "npx tsc -b",
+    "vscode:prepublish": "node esbuild.js --production",
+    "compile": "node esbuild.js",
     "watch": "npx tsc -b -w",
-    "package": "vsce package"
+    "package": "vsce package --no-dependencies"
   },
   "devDependencies": {
     "@types/vscode": "^1.75.0",
     "@types/node": "^18.0.0",
+    "esbuild": "^0.24.0",
     "typescript": "^5.0.0"
   },
   "dependencies": {

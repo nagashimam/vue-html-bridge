@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="12" fill="#42b883"/>
+
+  <!-- Vue-style chevron (simplified V shape) -->
+  <polygon points="64,24 98,92 82,92 64,58 46,92 30,92" fill="#35495e"/>
+  <polygon points="64,38 78,66 64,66 50,66" fill="#fff"/>
+
+  <!-- HTML bracket hints -->
+  <text x="18" y="108" font-family="monospace" font-size="24" font-weight="bold" fill="#fff" opacity="0.9">&lt;/&gt;</text>
+
+  <!-- Checkmark (validation) -->
+  <circle cx="100" cy="100" r="18" fill="#35495e"/>
+  <polyline points="90,100 96,108 112,92" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
